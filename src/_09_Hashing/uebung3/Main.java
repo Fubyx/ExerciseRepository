@@ -1,3 +1,5 @@
+package _09_Hashing.uebung3;
+
 import java.io.*;
 import java.util.ArrayList;
 
@@ -36,6 +38,7 @@ public class Main {
                     lowestCollisions = collisions;
                 }
             }
+            System.out.println(i - 3327 + " done");
         }
         System.out.println("BestM: "+ bestM + "BestA: "+ bestA);
     }
