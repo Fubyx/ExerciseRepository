@@ -13,23 +13,39 @@ public class Main {
 
         int sum = 0;
         for (int i = 0; i < firstName.length(); i++) {
-            sum += firstName.charAt(i) % 30;
+            sum += firstName.charAt(i) % 31;
         }
-        for (int i = 0; i < firstName.length(); i++) {
-            sum += lastName.charAt(i) % 30;
+        for (int i = 0; i < lastName.length(); i++) {
+            sum += lastName.charAt(i) % 31;
         }
 
         return sum % m;
     }
     public static void main(String[] args) {
-        LinkedList<Integer>  l = new LinkedList<>();
-        l.push(3);
-        l.push(5);
-        System.out.println(l);
-
         LinkedList<Student>[] hashMap = new LinkedList[28];
+        for(int i = 0; i < hashMap.length; ++i){
+            hashMap[i] = new LinkedList<>();
+        }
+        hashMap[0] = new LinkedList<>();
         Scanner s = new Scanner(System.in);
-        System.out.println(s.nextLine());
-
+        String firstName;
+        System.out.println("Enter a new first name or type \"cancel\" to cancel");
+        while(!(firstName = s.nextLine() ).equals("cancel")){
+            System.out.println("Enter the last name");
+            String lastName = s.nextLine();
+            System.out.println("Enter the birthday");
+            String date = s.nextLine();
+            System.out.println("Enter the class");
+            String className = s.nextLine();
+            Student student = new Student(firstName, lastName, date, className);
+            hashMap[hash(student, hashMap.length)].add(student);
+            System.out.println("Enter a new user or type \"cancel\" to cancel");
+        }
+        for (LinkedList<Student> l: hashMap) {
+            System.out.println("newList");
+            for (Student student:l) {
+                System.out.println(student.toString());
+            }
+        }
     }
 }
