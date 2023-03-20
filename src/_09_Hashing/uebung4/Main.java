@@ -21,6 +21,21 @@ public class Main {
 
         return sum % m;
     }
+
+    static private LinkedList<Student>[] reorganizeHashMap(LinkedList<Student>[] oldHashTable){
+        LinkedList<Student>[] newHashMap = new LinkedList[(int) (oldHashTable.length * 1.2)];
+        for (int i = 0; i < newHashMap.length; i++) {
+            newHashMap[i] = new LinkedList<>();
+        }
+        //alle bestehenden Schueler aus der alten List in die neuen hashen
+        for (int i = 0; i < oldHashTable.length; i++) {
+            for (Student student: oldHashTable[i]) {
+                newHashMap[hash(student, newHashMap.length)].add(student);
+            }
+        }
+        return newHashMap;
+    }
+
     public static void main(String[] args) {
         LinkedList<Student>[] hashMap = new LinkedList[28];
         for(int i = 0; i < hashMap.length; ++i){
@@ -30,7 +45,9 @@ public class Main {
         Scanner s = new Scanner(System.in);
         String firstName;
         System.out.println("Enter a new first name or type \"cancel\" to cancel");
+        int counter = 0;
         while(!(firstName = s.nextLine() ).equals("cancel")){
+            counter++;
             System.out.println("Enter the last name");
             String lastName = s.nextLine();
             System.out.println("Enter the birthday");
@@ -38,6 +55,10 @@ public class Main {
             System.out.println("Enter the class");
             String className = s.nextLine();
             Student student = new Student(firstName, lastName, date, className);
+
+            if((double)(counter/hashMap.length) > 0.75){
+                hashMap = reorganizeHashMap(hashMap);
+            }
             hashMap[hash(student, hashMap.length)].add(student);
             System.out.println("Enter a new user or type \"cancel\" to cancel");
         }
