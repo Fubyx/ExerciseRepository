@@ -14,9 +14,9 @@ public class Main {
             for(int j = 1; j < i; ++j){
                 int finalI = i;
                 int finalJ = j;
-                Thread t = new Thread(new Runnable() {
-                    @Override
-                    public void run() {
+                //Thread t = new Thread(new Runnable() {
+                    //@Override
+                    //public void run() {
                         File f = new File("src/listHashing.txt");
                         BufferedReader b = null;
                         try {
@@ -50,15 +50,15 @@ public class Main {
                             lowestCollisions[0] = collisions;
                         }
                     }
-                });
-                t.start();
-                threads.add(t);
+                //});
+                //t.start();
+                //threads.add(t);
             }
-        }
+        //}
 
-        for (Thread t:threads) {
-            t.join();
-        }
+        //for (Thread t:threads) {
+        //    t.join();
+        //}
         System.out.println("BestM: "+ bestM[0] + "BestA: "+ bestA[0]);
     }
 
