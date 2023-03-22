@@ -1,10 +1,7 @@
 package _09_Hashing.uebung4;
 
 import javax.xml.stream.events.StartDocument;
-import java.io.BufferedReader;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
+import java.io.*;
 import java.util.LinkedList;
 import java.util.Scanner;
 
@@ -40,17 +37,18 @@ public class Main {
     }
 
     public static void main(String[] args) {
+        LinkedList<Student>[] hashMap = new LinkedList[28];
         try {
             FileInputStream fileIn = new FileInputStream("test.ser");
             ObjectInputStream in = new ObjectInputStream(fileIn);
-        }catch(IOException e){
-
+            hashMap = (LinkedList<Student>[])in.readObject();
+            in.close();
+            fileIn.close();
+        }catch(IOException | ClassNotFoundException e){
+            for(int i = 0; i < hashMap.length; ++i){
+                hashMap[i] = new LinkedList<>();
+            }
         }
-        LinkedList<Student>[] hashMap = new LinkedList[28];
-        for(int i = 0; i < hashMap.length; ++i){
-            hashMap[i] = new LinkedList<>();
-        }
-        hashMap[0] = new LinkedList<>();
         Scanner s = new Scanner(System.in);
         String firstName;
         System.out.println("Enter a new first name or type \"cancel\" to cancel");
@@ -75,6 +73,18 @@ public class Main {
             System.out.println("newList");
             for (Student student:l) {
                 System.out.println(student.toString());
+            }
+        }
+
+        try {
+            FileOutputStream fileOut = new FileOutputStream("test.ser");
+            ObjectOutputStream out = new ObjectOutputStream(fileOut);
+            out.writeObject(hashMap);
+            out.close();
+            fileOut.close();
+        }catch(IOException e){
+            for(int i = 0; i < hashMap.length; ++i){
+                hashMap[i] = new LinkedList<>();
             }
         }
     }
