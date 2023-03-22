@@ -6,7 +6,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.*;
 
-public class Main {
+class Main {
     public static void main(String[] args) {
         final int MAX = 8;
         final int MIN = 5;
@@ -47,6 +47,21 @@ public class Main {
         }
 
         System.out.println("Ergebnis sortiert nach Anzahl:");
+        ArrayList<Map.Entry> keyList = new ArrayList<>(treeMap.entrySet());
+        Collections.sort(keyList, new Comparator<Map.Entry>() {
+            @Override
+            public int compare(Map.Entry o1, Map.Entry o2) {
+                if ((int) o1.getValue() < (int) o2.getValue()) {
+                    return 1;
+                } else if ((int) o1.getValue() > (int) o2.getValue()) {
+                    return -1;
+                }
+                return 0;
+            }
+        });
+        for (Map.Entry i : keyList) {
+            System.out.println(i);
+        }
         System.out.println("finished");
     }
 }
