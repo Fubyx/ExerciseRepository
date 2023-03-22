@@ -1,4 +1,4 @@
-package u0;
+package TP.JUnitTesting.u0;
 
 public class Calc {
 

@@ -1,4 +1,4 @@
-package u3;
+package TP.JUnitTesting.u3;
 
 /*
 	Aufwandsabschaetzung:

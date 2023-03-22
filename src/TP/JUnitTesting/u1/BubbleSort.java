@@ -1,4 +1,4 @@
-package u1;
+package TP.JUnitTesting.u1;
 
 /*
 	Schreibe fuer die gegbene Klasse einen JUnit-Test:

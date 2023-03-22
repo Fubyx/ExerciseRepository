@@ -1,4 +1,4 @@
-package u4;
+package TP.JUnitTesting.u4;
 
 /*
 	Schreibe einen JUnit-Test für die Klasse StringUtils
