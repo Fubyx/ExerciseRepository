@@ -2,6 +2,9 @@ package _09_Hashing.uebung4;
 
 import javax.xml.stream.events.StartDocument;
 import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.util.LinkedList;
 import java.util.Scanner;
 
@@ -37,6 +40,12 @@ public class Main {
     }
 
     public static void main(String[] args) {
+        try {
+            FileInputStream fileIn = new FileInputStream("test.ser");
+            ObjectInputStream in = new ObjectInputStream(fileIn);
+        }catch(IOException e){
+
+        }
         LinkedList<Student>[] hashMap = new LinkedList[28];
         for(int i = 0; i < hashMap.length; ++i){
             hashMap[i] = new LinkedList<>();
