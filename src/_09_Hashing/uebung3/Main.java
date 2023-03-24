@@ -3,7 +3,7 @@ package _09_Hashing.uebung3;
 import java.io.*;
 import java.util.ArrayList;
 
-public class Main {
+ class Main {
     public static void main(String[] args) throws FileNotFoundException, InterruptedException {
         final int[] bestM = {1};
         final int[] bestA = {1};

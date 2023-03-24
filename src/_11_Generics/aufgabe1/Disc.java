@@ -1,4 +1,9 @@
 package _11_Generics.aufgabe1;
 
-public class Disc {
+ class Disc {
+    boolean[] savedData;
+
+    public Disc(boolean[] savedData) {
+        this.savedData = savedData;
+    }
 }

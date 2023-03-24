@@ -5,7 +5,7 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Scanner;
 
-public class Main {
+ class Main {
 
     static private int hash(Student student, int m){
         String firstName = student.firstName;
