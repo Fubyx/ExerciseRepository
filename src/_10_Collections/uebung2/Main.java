@@ -9,7 +9,7 @@ class Main {
             amounts.put(i, 0);
         }
 
-        String s = "ZzZzaAhHsebfizevfihevfie wfviefbiwdefbviwdhsfdhibiuafiuaebdiquafuebf";
+        String s = "ZzZzaAhHseb123,.-59rgefvdwc87izev-fihev-aqxdwefbfie wfv3bgtrvefds45.qweAYRs-d.z.ugbinojmuk,ljmpk9,8iöo-Ä7i.hbuv,txrwew1234biw.d--fbviw.,dhsf6d-ibiuaf987.iuaebdi,quafuebf";
         s = s.toLowerCase();
         for (int i = 0; i < s.length(); ++i) {
             char key = s.charAt(i);
