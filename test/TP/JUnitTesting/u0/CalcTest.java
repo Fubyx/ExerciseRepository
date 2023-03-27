@@ -9,7 +9,14 @@ public class CalcTest {
     void addictionTest() {
         Calc c = new Calc();
         assertEquals(10, c.addition(6, 4));
-
+    }
+    @Test
+    void divisionTest(){
+        Calc c = new Calc();
+        assertEquals(0, c.division(20, -4));
+        assertEquals(0, c.division(20, 0));
+        assertEquals(5, c.division(20, 4));
+        //assertThrows()
     }
 
     @Test

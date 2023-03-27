@@ -9,4 +9,20 @@ package TP.JUnitTesting.u2;
 public class UserService {
   private UserService userService = null;
 
+  boolean logout (long id){
+    return false;
+  }
+
+  boolean resetPassword(long id){
+    return false;
+  }
+
+  boolean login (String name, String password){
+    return false;
+  }
+
+  boolean changePassword(long id, String oldPw, String newPw){
+    return false;
+  }
+
 }
