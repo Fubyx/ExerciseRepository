@@ -7,35 +7,39 @@ package TP.JUnitTesting.u1;
 	- Performance Test wenn man z.B. 1000000x eine Zahlenfolge sortiert
 */
 
+import jdk.jfr.Name;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.function.Executable;
+
+import static org.junit.jupiter.api.Assertions.*;
+
 public class BubbleSortTest {
-    public static int[] bubbleSort(int[] arr) {
-        int n = arr.length;
-        int temp = 0;
-        for(int i=0; i < n; i++){
-            for(int j=1; j < (n-i); j++){
-                if(arr[j-1] > arr[j]){
-                    temp = arr[j-1];
-                    arr[j-1] = arr[j];
-                    arr[j] = temp;
-                }
-            }
-        }
-        return arr;
+    @Test
+    @Name("The array is sorted Right")
+    void sortedRightTest() {
+        int[] arr = {8, 4, 9, 2, 0, 1, 7, 5, 6, 3};
+        int[] expected = {0,1,2,3,4,5,6,7,8,9};
+        assertArrayEquals(expected, BubbleSort.bubbleSort(arr));
     }
-    public static void main(String[] args) {
-        int arr[] ={3,60,35,2,45,320,5};
 
-        System.out.println("Array Before Bubble Sort");
-        for(int i=0; i < arr.length; i++){
-            System.out.print(arr[i] + " ");
+    @Test
+    void nullArgumentTest() {
+        assertThrows(NullPointerException.class, new Executable() {
+            @Override
+            public void execute() throws Throwable {
+                BubbleSort.bubbleSort(null);
+            }
+        });
+    }
+
+    @Test
+    void performanceTest() {
+        long startTime = System.currentTimeMillis();
+        int[] arr;
+        for (int i = 0; i < 100000; i++){
+            arr = new int[]{8, 4, 9, 2, 0, 1, 7, 5, 6, 3};
+            BubbleSort.bubbleSort(arr);
         }
-        System.out.println();
-
-        bubbleSort(arr);
-
-        System.out.println("Array After Bubble Sort");
-        for(int i=0; i < arr.length; i++){
-            System.out.print(arr[i] + " ");
-        }
+        assertTrue(System.currentTimeMillis() - startTime < 1000);
     }
 }
