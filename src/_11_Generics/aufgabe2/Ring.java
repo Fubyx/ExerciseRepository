@@ -2,6 +2,7 @@ package _11_Generics.aufgabe2;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.LinkedList;
 
 class Ring <T>{
@@ -19,7 +20,6 @@ class Ring <T>{
         return capacity;
     }
     public void add (T t){
-        System.out.println(t);
         if(amountOfObjects == capacity){
             throw new IllegalArgumentException();
         }
@@ -30,7 +30,7 @@ class Ring <T>{
             T[] newRing = (T[]) Array.newInstance(t.getClass(), capacity);
             if(currentIndex == 0){
                 newRing[0] = t;
-                for(int i = 1; i < amountOfObjects; ++i){
+                for(int i = 1; i < amountOfObjects + 1; ++i){
                     newRing[i] = ring[i - 1];
                 }
             }else{
@@ -48,7 +48,6 @@ class Ring <T>{
             }
         }
         amountOfObjects++;
-        System.out.println(ring[currentIndex]);
     }
 
     public void back(){
