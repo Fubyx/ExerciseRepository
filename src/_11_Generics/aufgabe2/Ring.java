@@ -19,26 +19,20 @@ class Ring <T>{
         return capacity;
     }
     public void add (T t){
+        System.out.println(t);
         if(amountOfObjects == capacity){
             throw new IllegalArgumentException();
         }
         if(amountOfObjects == 0){
             ring = (T[]) Array.newInstance(t.getClass(), capacity);
-            for(int i = 0; i < capacity; ++i){
-                ring[i] = null;
-            }
             ring[currentIndex] = t;
         }else{
             T[] newRing = (T[]) Array.newInstance(t.getClass(), capacity);
-            for(int i = 0; i < capacity; ++i){
-                newRing[i] = null;
-            }
-            if(currentIndex - 1 < 0){
+            if(currentIndex == 0){
                 newRing[0] = t;
-                for(int i = 1; i < capacity; ++i){
+                for(int i = 1; i < amountOfObjects; ++i){
                     newRing[i] = ring[i - 1];
                 }
-                ring = newRing;
             }else{
                 for(int i = 0; i < currentIndex; ++i){
                     newRing[i] = ring[i];
@@ -47,10 +41,14 @@ class Ring <T>{
                 for(int i = currentIndex + 1; i < capacity; ++i){
                     newRing[i] = ring[i - 1];
                 }
-                currentIndex++;
+            }
+            ring = newRing;
+            if(currentIndex + 1 < capacity) {
+                ++currentIndex;
             }
         }
         amountOfObjects++;
+        System.out.println(ring[currentIndex]);
     }
 
     public void back(){
@@ -69,14 +67,16 @@ class Ring <T>{
             throw new IllegalArgumentException();
         }
         T[]newRing = (T[]) Array.newInstance(ring[0].getClass(), capacity);
-        for(int i = 0; i < capacity; ++i){
-            newRing[i] = null;
-        }
         for(int i = 0; i < currentIndex; ++i){
             newRing[i] = ring[i];
         }
-        for(int i = currentIndex; i < capacity; ++i){
-            newRing[i] = ring[i + 1];
+        for(int i = currentIndex + 1; i < capacity; ++i){
+            newRing[i - 1] = ring[i];
+        }
+        ring = newRing;
+        --amountOfObjects;
+        if(currentIndex == amountOfObjects){
+            currentIndex = 0;
         }
     }
     public void set(T t){
@@ -84,7 +84,7 @@ class Ring <T>{
             throw new IllegalArgumentException();
         }
         ring[currentIndex] = t;
-        if(currentIndex == amountOfObjects){
+        if(currentIndex == amountOfObjects - 1){
             currentIndex = 0;
         }else{
             currentIndex++;
@@ -106,10 +106,17 @@ class Ring <T>{
     public String toString(){
         String s = "[";
         for(int i = 0; i < amountOfObjects - 1; ++i){
-            s = s.concat(ring[i] + ", ");
+            s = s.concat(String.valueOf(ring[i]));
+            if(i == currentIndex){
+                s = s.concat("*");
+            }
+            s = s.concat(", ");
         }
         if(amountOfObjects > 0){
-            s = s.concat((String) ring[amountOfObjects - 1]);
+            s = s.concat(String.valueOf(ring[amountOfObjects - 1]));
+            if(amountOfObjects - 1 == currentIndex){
+                s = s.concat("*");
+            }
         }
         s = s.concat("]");
         return s;

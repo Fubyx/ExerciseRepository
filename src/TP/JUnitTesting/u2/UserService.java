@@ -6,18 +6,39 @@ package TP.JUnitTesting.u2;
 */
 
 
+import java.util.ArrayList;
+
 public class UserService {
-  private UserService userService = null;
+  ArrayList<User> users = new ArrayList<>();
+  long currentId = 0;
 
   boolean logout (long id){
+    for(User i: users){
+      if(i.id == id){
+        users.remove(i);
+        return true;
+      }
+    }
     return false;
   }
 
   boolean resetPassword(long id){
+    for(User i: users){
+      if(i.id == id){
+        i.password = "";
+        return true;
+      }
+    }
     return false;
   }
 
   boolean login (String name, String password){
+    //users.add(new User(currentId, name, password));
+    for(User i: users){
+      if(i.name.equals(name)){
+        return i.password.equals(password);
+      }
+    }
     return false;
   }
 
