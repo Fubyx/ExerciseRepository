@@ -5,12 +5,12 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedList;
 
-class Ring <T>{
+public class Ring <T>{
     private Integer currentIndex = 0;
     private T[] ring;
     private int capacity;
     private int amountOfObjects = 0;
-    Ring(int cap) {
+    public Ring(int cap) {
         capacity = cap;
     }
     public int size(){
@@ -89,7 +89,7 @@ class Ring <T>{
             currentIndex++;
         }
     }
-    public T get(T t){
+    public T get(){
         if(amountOfObjects == 0){
             throw new IllegalArgumentException();
         }
