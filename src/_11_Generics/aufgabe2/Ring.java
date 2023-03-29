@@ -11,6 +11,9 @@ class Ring <T>{
     private int capacity;
     private int amountOfObjects = 0;
     Ring(int cap) {
+        if(cap < 0){
+            throw new IllegalArgumentException();
+        }
         capacity = cap;
     }
     public int size(){
