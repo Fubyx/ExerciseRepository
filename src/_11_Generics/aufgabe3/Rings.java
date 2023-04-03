@@ -3,8 +3,6 @@ package _11_Generics.aufgabe3;
 import _11_Generics.aufgabe2.Ring;
 
 import java.util.Arrays;
-import java.util.Comparator;
-import java.util.stream.Stream;
 
 public class Rings {
     public static <T> void removeAll(T o, Ring<T> r) {
@@ -56,10 +54,20 @@ public class Rings {
         }
         return biggest;
     }
-    public static <T extends Number, G extends Number> Ring<Number> merge(Ring<T> r1, Ring<G> r2) {
-        Ring<Number> newRing = new Ring<>(r1.capacity() + r2.capacity());
-        //unfinished
+    public static <T, T1 extends T, T2 extends T> Ring<T> merge(Ring<T1> r1, Ring<T2> r2) {
+        if (r1.size() == 0) {
+            return (Ring<T>) r2;
+        } else if (r2.size() == 0) {
+            return (Ring<T>) r1;
+        }
+        Ring<T> newRing = new Ring<T>(r1.capacity() + r2.capacity());
 
+        for (int i = 0; i < r1.size(); i ++) {
+            newRing.add(r1.get());
+        }
+        for (int i = 0; i < r2.size(); i ++) {
+            newRing.add(r2.get());
+        }
         return newRing;
     }
 }
