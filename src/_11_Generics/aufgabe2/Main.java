@@ -2,6 +2,7 @@ package _11_Generics.aufgabe2;
 
 public class Main {
     public static void main(String[] args) {
+
         Ring<Integer> ri = new Ring<Integer>(10);
         System.out.println(ri);
         int i = 0;

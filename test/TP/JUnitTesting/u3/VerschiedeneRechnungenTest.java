@@ -1,5 +1,12 @@
 package TP.JUnitTesting.u3;
 
+import TP.JUnitTesting.u0.Calc;
+import org.junit.jupiter.api.function.Executable;
+import org.testng.annotations.Test;
+
+import java.time.Duration;
+
+import static org.junit.jupiter.api.Assertions.*;
 /*
 	Aufwandsabschaetzung:
 	---------------------------------------------
@@ -10,26 +17,13 @@ package TP.JUnitTesting.u3;
 
 public class VerschiedeneRechnungenTest {
 
-    static boolean gerade(int x){
-        if (x == 0) return true;
-        return !gerade(x-1);
+    @Test
+    void timeoutTest() {
+        assertTimeout(Duration.ofMillis(1000), new Executable() {
+            @Override
+            public void execute() throws Throwable {
+                VerschiedeneRechnungen.f(10, 5);
+            }
+        });
     }
-
-    static int verdopple(int x){
-        if (x == 0) return 0;
-        return 2 + verdopple(x-1);
-    }
-
-    static int halbiere(int x){
-        if (x == 0) return 0;
-        if (x == 1) return 0;
-        return 1 + halbiere(x-2);
-    }
-
-    static int f(int a, int b){
-        if (b == 0) return 0;
-        if (gerade(b)) return f(verdopple(a), halbiere(b));
-        return a + f(verdopple(a), halbiere(b));
-    }
-
 }
