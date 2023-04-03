@@ -8,8 +8,6 @@ package TP.JUnitTesting.u4;
 */
 
 public class StringUtils {
-
-
   public static Double convertToDouble(String str) {
     if (str == null) {
       return null;

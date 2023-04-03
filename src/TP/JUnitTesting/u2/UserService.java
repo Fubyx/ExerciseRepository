@@ -12,6 +12,10 @@ public class UserService {
   ArrayList<User> users = new ArrayList<>();
   long currentId = 0;
 
+  public UserService () {
+    users.add(new User(1l, "admin", "password123"));
+  }
+
   boolean logout (long id){
     for(User i: users){
       if(i.id == id){
@@ -33,6 +37,9 @@ public class UserService {
   }
 
   boolean login (String name, String password){
+    if(password == null || name == null || password.equals("") || name.equals("")){
+      throw new IllegalArgumentException("Username and password must not be null or empty");
+    }
     //users.add(new User(currentId, name, password));
     for(User i: users){
       if(i.name.equals(name)){
@@ -43,7 +50,19 @@ public class UserService {
   }
 
   boolean changePassword(long id, String oldPw, String newPw){
+    if(oldPw.equals(newPw)){
+      return false;
+    }
+    for(User i: users){
+      if(i.id == id){
+        if(i.password.equals(oldPw)){
+          i.password = newPw;
+          return true;
+        }else{
+          return false;
+        }
+      }
+    }
     return false;
   }
-
 }
