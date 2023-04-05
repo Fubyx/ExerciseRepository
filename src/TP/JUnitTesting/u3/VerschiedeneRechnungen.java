@@ -10,12 +10,12 @@ package TP.JUnitTesting.u3;
 
 public class VerschiedeneRechnungen {
 
-    static boolean gerade(int x){
+    static boolean gerade(int x){ // O(n)
         if (x == 0) return true;
         return !gerade(x-1);
     }
 
-    static int verdopple(int x){
+    static int verdopple(int x){ // O(n)
         if (x == 0) return 0;
         return 2 + verdopple(x-1);
     }
