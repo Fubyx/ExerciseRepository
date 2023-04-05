@@ -2,12 +2,17 @@ package _12_TSP;
 
 public class TSPUtils {
     public static Graph perfectMatching(Graph origin) {
-        Graph g = new Graph();
-        //for (Node n : origin.) {
-            //if (n.getNeighbors().length % 2 == 1) {
+        Graph matching = new Graph();
+        for (Node n : origin.getNodes()) {
+            if (n.getNeighbors().length % 2 == 1) {
+                matching.addNode(n.getX(), n.getY());
+            }
+        }
+        matching.turnIntoCompleteGraph();
 
-            //}
-        //}
-        return g;
+        // now wizardry to get a perfect matching
+
+
+        return matching;
     }
 }

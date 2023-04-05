@@ -10,11 +10,17 @@ public class Graph {
     public Graph(ArrayList<Node> nodes) {
         this.nodes.addAll(nodes);
     }
+    public ArrayList<Node> getNodes() {
+        return nodes;
+    }
     public void addNode() {
         nodes.add(new Node(random.nextDouble(0, 100), random.nextDouble(0, 100)));
     }
     public void addNode(double x, double y) {
         nodes.add(new Node(x, y));
+    }
+    public void addNode(Node node) {
+        nodes.add(node);
     }
     public void turnIntoCompleteGraph() {
         for (Node n : nodes) {
