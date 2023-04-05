@@ -26,11 +26,5 @@ public class Graph {
             }
         }
     }
-    public void perfectMatching() {
-        for (Node n : nodes) {
-            if (n.getNeighbors().length % 2 == 1) {
 
-            }
-        }
-    }
 }
