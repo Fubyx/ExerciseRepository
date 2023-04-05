@@ -1,5 +1,6 @@
 package TP.JUnitTesting.u4;
 
+
 /*
 	Schreibe einen JUnit-Test für die Klasse StringUtils
 	um die darin enthaltenen Methoden passend zu ueberprueften.
@@ -7,37 +8,34 @@ package TP.JUnitTesting.u4;
 	und ueberpruefe sie mit den zu erwartenden Werten.
 */
 
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
+
 public class StringUtilsTest {
 
-
-  public static Double convertToDouble(String str) {
-    if (str == null) {
-      return null;
-    }
-    return Double.valueOf(str);
+  @Test
+  public void convertToDoubleTest(){
+    String s = "0.587";
+    assertEquals(0.587, StringUtils.convertToDouble(s));
   }
 
-  public static boolean isNullOrBlank(String st) {
-    return st == null || st.trim().length() == 0;
+  @Test
+  public void isNullOrBlankTest(){
+    assertTrue(StringUtils.isNullOrBlank(""));
+    assertTrue(StringUtils.isNullOrBlank(null));
   }
 
-  public static String getDefaultIfNull(final String st, final String defaultSt) {
-    return st == null ? defaultSt : st;
+  @Test
+  public void getDefaultIfNullTest (){
+    String s = "agv";
+    assertEquals(s, StringUtils.getDefaultIfNull(s, "Test"));
+    assertEquals(s, StringUtils.getDefaultIfNull(null, s));
+    assertNotEquals(s, StringUtils.getDefaultIfNull("", s));
   }
 
-  public static String concat(String... sts) {
-    String retVal = null;
-    if (sts != null && sts.length > 0) {
-      StringBuilder sb = new StringBuilder();
-      for (String st : sts) {
-        if (st != null) {
-          sb.append(st);
-        }
-      }
-      retVal = sb.toString();
-    }
-    return retVal;
+  @Test
+  public void concatTest(){
+    assertEquals("HalloTest", StringUtils.concat("Hallo", "Test"));
   }
-
 }
 
