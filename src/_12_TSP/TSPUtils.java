@@ -24,11 +24,11 @@ public class TSPUtils {
     public static Graph spanningTree(Graph origin){
         Graph stGraph = new Graph();
 
-        PriorityQueue<Pair<Node, Node>> queue = new PriorityQueue<Pair<Node, Node>>(new Comparator<Pair<Node, Node>>() {
-            /*  Pair: jeweils das neue Element in der STP Menge und für jeden Nachbarn außer er ist in Menge
+         /*  Pair: jeweils das neue Element in der STP Menge und für jeden Nachbarn außer er ist in Menge
                 Die Pairs in einer Queue nach Abstände sortieren
                 Den kleinsten Abstand nehmen und den Nachbar an die Menge anfügen
             */
+        PriorityQueue<Pair<Node, Node>> queue = new PriorityQueue<Pair<Node, Node>>(new Comparator<Pair<Node, Node>>() {
             @Override
             public int compare(Pair<Node, Node> o1, Pair<Node, Node> o2) {
                 if(o1.first().getCostToNeighbor(o1.second()) > o2.first().getCostToNeighbor(o2.second())){
@@ -57,7 +57,11 @@ public class TSPUtils {
             Node neighbor = minimum.second();
 
             Node newNode = new Node(neighbor.getX(),neighbor.getY());
+            stGraph.addNode(newNode);
+            
+
             //ZUgang auf bestehenden stGraph, weil sonst schon Nachbarn eingetragen sind, die falsch sind
+            System.out.println(minimum.first().getX()+ " "+ minimum.first().getY());
             newNode.addNeighbor(stGraph.getNode(minimum.first().getX(), minimum.first().getY()));
             stGraph.getNode(minimum.first().getX(), minimum.first().getY()).addNeighbor(newNode);
 
