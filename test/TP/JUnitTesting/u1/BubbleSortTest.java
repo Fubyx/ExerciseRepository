@@ -9,9 +9,16 @@ package TP.JUnitTesting.u1;
 
 import jdk.jfr.Name;
 import org.junit.jupiter.api.Test;
+
+import jdk.jfr.Name;
 import org.junit.jupiter.api.function.Executable;
+import org.testng.annotations.*;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.testng.Assert.assertThrows;
+import static org.testng.internal.junit.ArrayAsserts.assertArrayEquals;
+import static org.junit.jupiter.api.Assertions.*;
+
 
 public class BubbleSortTest {
     @Test
@@ -30,6 +37,9 @@ public class BubbleSortTest {
                 BubbleSort.bubbleSort(null);
             }
         });
+    }
+
+    private void assertThrows(Class<NullPointerException> nullPointerExceptionClass, Executable executable) {
     }
 
     @Test

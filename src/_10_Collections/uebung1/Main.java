@@ -65,3 +65,10 @@ class Main {
         System.out.println("finished");
     }
 }
+
+/*Hashmap wäre wenn man nicht sortieren müsste besser, weil diese theoretisch O(1) hat
+* und nicht O(logN) wie der Baum hat
+* aber wenn man sortiert, dann ist der Baum sinnvoler, weil man die Hashmap nicht selbst wirklich ändern kann
+* weil ja die HashMap die Keys dementsprechend aufgebaut hat
+*
+* Beim Suchen meistens und sortieren meistens der Baum an SInnvollsten*/

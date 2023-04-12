@@ -19,9 +19,10 @@ public class UserServiceTest {
         userService = new UserService();
     }
 
+
     @Test
     public void logoutSuccess() {
-        long userId = 1L;
+        long userId = 0L;
         assertTrue(userService.logout(userId));
 
     }

@@ -36,6 +36,7 @@ public class StringUtilsTest {
   @Test
   public void concatTest(){
     assertEquals("HalloTest", StringUtils.concat("Hallo", "Test"));
+    assertEquals("  ", StringUtils.concat(" ", " "));
   }
 }
 

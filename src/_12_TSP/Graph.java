@@ -1,6 +1,7 @@
 package _12_TSP;
 
 import java.util.ArrayList;
+import java.util.NoSuchElementException;
 import java.util.Random;
 
 public class Graph {
@@ -13,6 +14,16 @@ public class Graph {
     public ArrayList<Node> getNodes() {
         return nodes;
     }
+
+    public Node getNode(double x, double y){
+        for (Node node:nodes) {
+            if(x == node.getX() && y == node.getY()){
+                return node;
+            }
+        }
+        throw new NoSuchElementException("Zu angegebenen Werten besteht keine Node.");
+    }
+
     public void addNode() {
         nodes.add(new Node(random.nextDouble(0, 100), random.nextDouble(0, 100)));
     }
