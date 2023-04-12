@@ -48,8 +48,9 @@ public class TestTSPUtils {
         graph.addNode(ff);
 
         Graph spanningTree = TSPUtils.spanningTree(graph);
+        System.out.println(spanningTree.size());
         for (Node node: spanningTree.getNodes()) {
-            System.out.println(node.getX() + " "+node.getY());
+            //System.out.println(node.getX() + " "+node.getY());
         }
     }
 }

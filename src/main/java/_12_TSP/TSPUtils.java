@@ -107,7 +107,7 @@ public class TSPUtils {
             }
         });
 
-        //erstes ELement in Menge hinzufuegen und die Neighbors eintragen
+        //erstes Element in Menge hinzufügen und die Neighbors eintragen
         stGraph.addNode(origin.getNodes().get(0));
         for (Node node:origin.getNodes().get(0).getNeighbors()) {
             queue.add(new Pair<>(stGraph.getNodes().get(0), node));
@@ -115,7 +115,7 @@ public class TSPUtils {
 
         //queue durchgehen, bis sie leer ist
         while(!queue.isEmpty()) {
-            //neuen Node waehöen mit kleinsten Kosten und noch nicht in Graph
+            //neuen Node wählen mit kleinsten Kosten und noch nicht in Graph
             Pair<Node, Node> minimum = queue.poll();
             while(stGraph.getNodes().contains(minimum.second())){
                 minimum = queue.poll();
@@ -127,8 +127,8 @@ public class TSPUtils {
             stGraph.addNode(newNode);
             
 
-            //ZUgang auf bestehenden stGraph, weil sonst schon Nachbarn eingetragen sind, die falsch sind
-            System.out.println(minimum.first().getX()+ " "+ minimum.first().getY());
+            //Zugang auf bestehenden stGraph, weil sonst schon Nachbarn eingetragen sind, die falsch sind
+            //System.out.println(minimum.first().getX()+ " "+ minimum.first().getY());
             newNode.addNeighbor(stGraph.getNode(minimum.first().getX(), minimum.first().getY()));
             stGraph.getNode(minimum.first().getX(), minimum.first().getY()).addNeighbor(newNode);
 
