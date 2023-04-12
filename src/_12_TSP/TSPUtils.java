@@ -12,7 +12,7 @@ import static java.lang.Math.sqrt;
 
 public class TSPUtils {
     public static Graph perfectMatching(Graph origin) {
-        if (origin.getNodes().size() < 2 || origin.getNodes().size() % 2 == 1) {
+        if (origin.getNodes().size() < 2) {
             throw new RuntimeException();
         }
         Graph matching = new Graph();
@@ -20,6 +20,10 @@ public class TSPUtils {
             if (n.getNeighbors().length % 2 == 1) {
                 matching.addNode(n.getX(), n.getY());
             }
+        }
+        if (matching.getNodes().size() < 2 || matching.getNodes().size() % 2 == 1) {
+            System.out.println("something went wrong");
+            return null;
         }
 
         // now wizardry to get a perfect matching
@@ -84,7 +88,6 @@ public class TSPUtils {
             }
         }
         // now integrate this into SPT
-
         return matching;
     }
 
