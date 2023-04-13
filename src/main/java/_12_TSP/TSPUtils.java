@@ -13,7 +13,7 @@ import static java.lang.Math.sqrt;
 
 public class TSPUtils {
     /**
-     * not really a perfect matching, but it works with a time complexity of O(2)
+     * not really a perfect matching, but it works with a time complexity of O(n^2)
      * @param origin the graph in which the perfect matching of the Nodes with uneven degree should be performed
      * @return a graph with only the nodes and vertices which were needed for the perfect matching
      */
