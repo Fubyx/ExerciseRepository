@@ -17,7 +17,11 @@ public class Node {
         costToNeighbors.put(node, cost);
     }
     public double getCostToNeighbor(Node node){
-        return costToNeighbors.get(node);
+        Double cost = costToNeighbors.get(node);
+        if(cost == null) {
+            return getCostTo(node);
+        }
+        return cost;
     }
     public double getCostTo(Node node) {
         return sqrt((x-node.getX())*(x-node.getX())+(y-node.getY())*(y-node.getY()));
@@ -38,5 +42,25 @@ public class Node {
 
     public double getY() {
         return y;
+    }
+
+    @Override
+    public boolean equals (Object obj){
+        if(obj instanceof Node){
+            Node n = (Node) obj;
+            if(n.x == this.x && n.y == this.y){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean hasNeighbour(Node node){
+        for (Node n:costToNeighbors.keySet()) {
+            if(n.equals(node)){
+                return true;
+            }
+        }
+        return false;
     }
 }

@@ -3,6 +3,11 @@ package _12_TSP;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import java.util.Arrays;
+
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 public class TestTSPUtils {
     @Test
     @DisplayName("Test für den Spanning-Tree")
@@ -48,9 +53,21 @@ public class TestTSPUtils {
         graph.addNode(ff);
 
         Graph spanningTree = TSPUtils.spanningTree(graph);
-        System.out.println(spanningTree.size());
-        for (Node node: spanningTree.getNodes()) {
-            //System.out.println(node.getX() + " "+node.getY());
+        //System.out.println(spanningTree.size());
+        //for (Node node: spanningTree.getNodes()) {
+        //    System.out.println(node.getX() + " "+node.getY());
+        //}
+        assertTrue(graph.equals(spanningTree));
+        for (Node n:spanningTree.getNodes()) {
+            if(n.equals(nn)){
+                //assertTrue(n.hasNeighbour(tt));
+                //assertFalse(n.hasNeighbour(tn));
+                //assertFalse(n.hasNeighbour(nt));
+                for(Node n2: n.getNeighbors()){
+                    System.out.println(n2.getX() + " " + n2.getY());
+                }
+            }
         }
+
     }
 }

@@ -46,5 +46,23 @@ public class Graph {
     public int size (){
         return nodes.size();
     }
+    @Override
+    public boolean equals (Object obj){
+        if(obj instanceof Graph){
+            Graph g = (Graph) obj;
+            int amt = 0;
+            for (Node n : g.nodes) {
+                for(Node n1: this.nodes){
+                    if(n.equals(n1)){
+                        ++amt;
+                    }
+                }
+            }
+            if(amt == this.size()){
+                return true;
+            }
+        }
+        return false;
+    }
 
 }
