@@ -20,7 +20,7 @@ public class Node {
         return costToNeighbors.get(node);
     }
     public double getCostTo(Node node) {
-        return sqrt((x-node.getX()*x-node.getX())+(y-node.getY()*y-node.getY()));
+        return sqrt((x-node.getX())*(x-node.getX())+(y-node.getY())*(y-node.getY()));
     }
     public Node[] getNeighbors() {
         return costToNeighbors.keySet().toArray(new Node[0]);
