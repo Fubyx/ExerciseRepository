@@ -25,6 +25,7 @@ public class Main extends Application {
     private Scene scene;
     private Group root;
     private Random r = new Random();
+
     /* todo
     textfield amountOfNodes
     Button matching
@@ -33,6 +34,7 @@ public class Main extends Application {
     public static void main(String[] args) {
         launch();
     }
+
     @Override
     public void start(Stage stage) {
         root = new Group();
@@ -52,6 +54,11 @@ public class Main extends Application {
                 } else if (keyEvent.getCode() == KeyCode.R) {
                     g[0] = newGraphWithRandomNodes(amountOfNodes);
                     drawGraph(g[0]);
+                } else if (keyEvent.getCode() == KeyCode.S) {
+                    g[0] = TSPUtils.spanningTree(g[0]);
+                    drawGraph(g[0]);
+                } else if (keyEvent.getCode() == KeyCode.C) {
+                    g[0].turnIntoCompleteGraph();
                 }
             }
         });
@@ -64,13 +71,14 @@ public class Main extends Application {
         tl.setCycleCount(Timeline.INDEFINITE);
         tl.play();
     }
+
     private Graph newGraphWithRandomNodes(int amountOfNodes) {
         ArrayList<Node> nodes = new ArrayList<>(amountOfNodes);
         for (int i = 0; i < amountOfNodes; i++) {
             nodes.add(new Node(r.nextDouble(0, SCREENWIDTH), r.nextDouble(0, SCREENHEIGHT)));
         }
         for (int i = 0; i < amountOfNodes; i++) {
-            for (int j = i+1; j < amountOfNodes; j++) {
+            for (int j = i + 1; j < amountOfNodes; j++) {
                 if (r.nextInt(0, 10) == 0) {
                     nodes.get(i).addNeighbor(nodes.get(j));
                     nodes.get(j).addNeighbor(nodes.get(i));
@@ -79,6 +87,7 @@ public class Main extends Application {
         }
         return new Graph(nodes);
     }
+
     private void drawGraph(Graph g) {
         root.getChildren().clear();
         for (Node n : g.getNodes()) {
