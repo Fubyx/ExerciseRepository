@@ -106,9 +106,12 @@ public class TSPUtils {
         });
 
         //erstes Element in Menge hinzufügen und die Neighbors eintragen
-        stGraph.addNode(origin.getNodes().get(0));
-        for (Node node : origin.getNodes().get(0).getNeighbors()) {
-            queue.add(new Pair<>(stGraph.getNodes().get(0), node));
+        stGraph.addNode(new Node(origin.getNodes().get(0).getX(), origin.getNodes().get(0).getY()));
+        for (Node node:origin.getNodes().get(0).getNeighbors()) {
+            if(!(stGraph.getNodes().contains(node))){
+                queue.add(new Pair<>(stGraph.getNodes().get(0), node));
+
+            }
         }
 
         //queue durchgehen, bis sie leer ist
@@ -117,8 +120,13 @@ public class TSPUtils {
             Pair<Node, Node> minimum = queue.poll();
             while (stGraph.getNodes().contains(minimum.second())) {
                 minimum = queue.poll();
+                if(minimum == null){
+                    break;
+                }
+            };
+            if(minimum == null){
+                break;
             }
-            ;
 
             Node neighbor = minimum.second();
 
