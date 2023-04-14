@@ -6,8 +6,11 @@ import javafx.application.Application;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
@@ -19,11 +22,15 @@ import java.util.Random;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class Main extends Application {
-    private int amountOfNodes = 1000;
+    private int amountOfNodes = 500;
     private final int SCREENWIDTH = 1600;
     private final int SCREENHEIGHT = 800;
     private Scene scene;
     private Group root;
+    private VBox buttonBox;
+    private Label nodeAmountLabel;
+    private Button matchingButton;
+    private Button sptButton;
     private Random r = new Random();
 
     /* todo
@@ -38,7 +45,31 @@ public class Main extends Application {
     @Override
     public void start(Stage stage) {
         root = new Group();
-        final Graph[] g = {newGraphWithRandomNodes(amountOfNodes)};
+        final Graph[] g = {newGraphWithRandomNodes(amountOfNodes), null};
+
+        //Labels und Buttons
+        root.requestFocus();
+        root.getChildren().add(buttonBox);
+        buttonBox = new VBox();
+        buttonBox.setLayoutX(0);
+        buttonBox.setLayoutY(0);
+
+        nodeAmountLabel = new Label();
+        matchingButton = new Button();
+        matchingButton.setText("perform perfect Matching");
+        matchingButton.setOnAction(actionEvent -> {
+            g[0] = TSPUtils.perfectMatching(g[0]);
+            drawGraph(g[0]);
+        });
+        sptButton = new Button();
+        sptButton.setText("perform spanning tree");
+        sptButton.setOnAction(actionEvent -> {
+            g[0] = TSPUtils.spanningTree(g[0]);
+            drawGraph(g[0]);
+        });
+        buttonBox.getChildren().addAll(nodeAmountLabel, matchingButton, sptButton);
+
+
         drawGraph(g[0]);
         scene = new Scene(root, SCREENWIDTH, SCREENHEIGHT);
         stage.setTitle("Graphs (I guess)!");
@@ -48,17 +79,27 @@ public class Main extends Application {
         scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent keyEvent) {
-                if (keyEvent.getCode() == KeyCode.M) {
+                if (keyEvent.getCode() == KeyCode.M) {  // perform matching of nodes with uneven degree
                     g[0] = TSPUtils.perfectMatching(g[0]);
                     drawGraph(g[0]);
-                } else if (keyEvent.getCode() == KeyCode.R) {
+                } else if (keyEvent.getCode() == KeyCode.R) { // new random graph
                     g[0] = newGraphWithRandomNodes(amountOfNodes);
                     drawGraph(g[0]);
-                } else if (keyEvent.getCode() == KeyCode.S) {
+                } else if (keyEvent.getCode() == KeyCode.S) { // make spanning tree of graph
                     g[0] = TSPUtils.spanningTree(g[0]);
                     drawGraph(g[0]);
-                } else if (keyEvent.getCode() == KeyCode.C) {
+                } else if (keyEvent.getCode() == KeyCode.C) { // complete graph
                     g[0].turnIntoCompleteGraph();
+                    drawGraph(g[0]);
+                } else if (keyEvent.getCode() == KeyCode.A) { // all combined (except random)
+                    g[0].turnIntoCompleteGraph();
+                    g[0] = TSPUtils.spanningTree(g[0]);
+                    Graph matching = TSPUtils.perfectMatching(g[0]);
+                    for (Node n : matching.getNodes()) {
+                        g[0].getNode(n.getX(), n.getY()).addNeighbor(g[0].getNode(n.getNeighbors()[0].getX(), n.getNeighbors()[0].getY()));
+                    }
+                    drawGraph(g[0]);
+                    // now only eulertour is missing
                 }
             }
         });
@@ -72,7 +113,7 @@ public class Main extends Application {
         tl.play();
     }
 
-    private Graph newGraphWithRandomNodes(int amountOfNodes) {
+    private Graph newGraphWithRandomNodesAndEdges(int amountOfNodes) {
         ArrayList<Node> nodes = new ArrayList<>(amountOfNodes);
         for (int i = 0; i < amountOfNodes; i++) {
             nodes.add(new Node(r.nextDouble(0, SCREENWIDTH), r.nextDouble(0, SCREENHEIGHT)));
@@ -87,8 +128,16 @@ public class Main extends Application {
         }
         return new Graph(nodes);
     }
+    private Graph newGraphWithRandomNodes(int amountOfNodes) {
+        ArrayList<Node> nodes = new ArrayList<>(amountOfNodes);
+        for (int i = 0; i < amountOfNodes; i++) {
+            nodes.add(new Node(r.nextDouble(0, SCREENWIDTH), r.nextDouble(0, SCREENHEIGHT)));
+        }
+        return new Graph(nodes);
+    }
 
     private void drawGraph(Graph g) {
+        nodeAmountLabel.setText(String.valueOf(amountOfNodes));
         root.getChildren().clear();
         for (Node n : g.getNodes()) {
             Circle c = new Circle(n.getX(), n.getY(), 5);
