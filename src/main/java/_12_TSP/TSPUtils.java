@@ -145,6 +145,27 @@ public class TSPUtils {
         }
         return stGraph;
     }
+
+    /**
+     * Glaube dasselbe wie draußen schon im Segment fur alle in SChleife*/
+    public static Graph combineMatchingAndSPT(Graph matching, Graph spt){
+        Graph combiGraph = new Graph();
+        for (Node node : spt.getNodes()) {
+            for (Node matchN :matching.getNodes()) {
+                if(node.getX() == matchN.getX() && node.getY() == matchN.getY()){
+                    node.addNeighbor(matchN.getNeighbors()[0]);
+                }
+            }
+            combiGraph.addNode(node);
+        }
+        return combiGraph;
+    }
+
+    public static Graph eulerTour(){
+        Graph eulerTour = new Graph();
+
+        return eulerTour;
+    }
 }
     /**
      * It is assumed that the origin Graph is a complete graph

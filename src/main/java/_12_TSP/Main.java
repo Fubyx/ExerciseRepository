@@ -98,6 +98,7 @@ public class Main extends Application {
                     for (Node n : matching.getNodes()) {
                         g[0].getNode(n.getX(), n.getY()).addNeighbor(g[0].getNode(n.getNeighbors()[0].getX(), n.getNeighbors()[0].getY()));
                     }
+                    g[0] = TSPUtils.combineMatchingAndSPT(matching, g[0]);
                     drawGraph(g[0]);
                     // now only eulertour is missing
                 }
