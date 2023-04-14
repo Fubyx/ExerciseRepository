@@ -21,7 +21,8 @@ public class Graph {
                 return node;
             }
         }
-        throw new NoSuchElementException("Zu angegebenen Werten besteht keine Node.");
+        return null;
+        //throw new NoSuchElementException("Zu angegebenen Werten besteht keine Node.");
     }
 
     public void addNode() {
