@@ -1,6 +1,7 @@
 package _12_TSP;
 
-import org.testng.internal.collections.Pair;
+
+import javafx.util.Pair;
 
 import java.util.*;
 
@@ -95,9 +96,9 @@ public class TSPUtils {
         PriorityQueue<Pair<Node, Node>> queue = new PriorityQueue<Pair<Node, Node>>(new Comparator<Pair<Node, Node>>() {
             @Override
             public int compare(Pair<Node, Node> o1, Pair<Node, Node> o2) {
-                if (o1.first().getCostToNeighbor(o1.second()) > o2.first().getCostToNeighbor(o2.second())) {
+                if (o1.getKey().getCostToNeighbor(o1.getValue()) > o2.getKey().getCostToNeighbor(o2.getValue())) {
                     return 1;
-                } else if (o1.first().getCostToNeighbor(o1.second()) < o2.first().getCostToNeighbor(o2.second())) {
+                } else if (o1.getKey().getCostToNeighbor(o1.getValue()) < o2.getKey().getCostToNeighbor(o2.getValue())) {
                     return -1;
                 }
                 return 0;
@@ -118,19 +119,22 @@ public class TSPUtils {
                 System.out.println("wtf SPT");
                 break;
             }
+
+            //alle anderen Pairs mit gleichem Ziel aus Queue loeschen
             queue.removeIf(new Predicate<Pair<Node, Node>>() {
                 @Override
                 public boolean test(Pair<Node, Node> nodeNodePair) {
-                    return minimum.second().equals(nodeNodePair.second());
+                    return minimum.getValue().equals(nodeNodePair.getValue());
                 }
             });
-            Node neighbor = minimum.second();
+
+            Node neighbor = minimum.getValue();
             Node newNode = new Node(neighbor.getX(), neighbor.getY());
             stGraph.addNode(newNode);
 
             //Zugang auf bestehenden stGraph, weil sonst schon Nachbarn eingetragen sind, die falsch sind
-            newNode.addNeighbor(minimum.first());
-            minimum.first().addNeighbor(newNode);
+            newNode.addNeighbor(minimum.getKey());
+            minimum.getKey().addNeighbor(newNode);
 
             //alle neuen Neighbors in Queue geben
             for (Node node : neighbor.getNeighbors()) {
@@ -141,6 +145,27 @@ public class TSPUtils {
         }
         return stGraph;
     }
+
+    /**
+     * Glaube dasselbe wie draußen schon im Segment fur alle in SChleife*/
+    public static Graph combineMatchingAndSPT(Graph matching, Graph spt){
+        Graph combiGraph = new Graph();
+        for (Node node : spt.getNodes()) {
+            for (Node matchN :matching.getNodes()) {
+                if(node.getX() == matchN.getX() && node.getY() == matchN.getY()){
+                    node.addNeighbor(matchN.getNeighbors()[0]);
+                }
+            }
+            combiGraph.addNode(node);
+        }
+        return combiGraph;
+    }
+
+    public static Graph eulerTour(){
+        Graph eulerTour = new Graph();
+
+        return eulerTour;
+    }
 }
     /**
      * It is assumed that the origin Graph is a complete graph
@@ -148,3 +173,54 @@ public class TSPUtils {
      * @return
      */
 
+    /*
+    *         Graph stGraph = new Graph();
+
+         /*  Pair: jeweils das neue Element in der STP Menge und für jeden Nachbarn außer er ist in Menge
+                Die Pairs in einer Queue nach Abstände sortieren
+                Den kleinsten Abstand nehmen und den Nachbar an die Menge anfügen
+
+    PriorityQueue<Pair<Node, Node>> queue = new PriorityQueue<Pair<Node, Node>>(new Comparator<Pair<Node, Node>>() {
+        @Override
+        public int compare(Pair<Node, Node> o1, Pair<Node, Node> o2) {
+            if(o1.first().getCostToNeighbor(o1.second()) > o2.first().getCostToNeighbor(o2.second())){
+                return 1;
+            }else if(o1.first().getCostToNeighbor(o1.second()) < o2.first().getCostToNeighbor(o2.second())){
+                return -1;
+            }
+            return 0;
+        }
+    });
+
+//erstes ELement in Menge hinzufuegen und die Neighbors eintragen
+        stGraph.addNode(origin.getNodes().get(0));
+                for (Node node:origin.getNodes().get(0).getNeighbors()) {
+                queue.add(new Pair<>(stGraph.getNodes().get(0), node));
+        }
+
+        //queue durchgehen, bis sie leer ist
+        while(!queue.isEmpty()) {
+        //neuen Node waehöen mit kleinsten Kosten und noch nicht in Graph
+        Pair<Node, Node> minimum = queue.poll();
+        while(stGraph.getNodes().contains(minimum.second())){
+        minimum = queue.poll();
+        };
+
+        Node neighbor = minimum.second();
+
+        Node newNode = new Node(neighbor.getX(),neighbor.getY());
+        stGraph.addNode(newNode);
+
+
+        //ZUgang auf bestehenden stGraph, weil sonst schon Nachbarn eingetragen sind, die falsch sind
+        System.out.println(minimum.first().getX()+ " "+ minimum.first().getY());
+        newNode.addNeighbor(stGraph.getNode(minimum.first().getX(), minimum.first().getY()));
+        stGraph.getNode(minimum.first().getX(), minimum.first().getY()).addNeighbor(newNode);
+
+        //alle neuen Neighbors in Queue geben
+        for (Node node : neighbor.getNeighbors()) {
+        if(!(stGraph.getNodes().contains(node))){
+        queue.add(new Pair<>(neighbor, node));
+        }
+        }
+        }*/
