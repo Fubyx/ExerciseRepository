@@ -1,5 +1,7 @@
 package _11_Generics.aufgabe2;
 
+import _11_Generics.aufgabe3.Rings;
+
 public class Main {
     public static void main(String[] args) {
 
