@@ -11,14 +11,18 @@ public class ReentrantLockWithCondition {
     while here you can enable "first come, first served" by putting "true" the Constructor of the lock.
     now when a Thread finished (used lock.unlock) the longest waiting Thread gets access to the critical region.
     There are also some other uses like with the ReadWriteLock and StampedLock
-
+    wait -> await
+    notify -> signal
+    new:
+    trylock() to check if the lock is already taken, so you can do something else if it already is taken
+    if you give it a long as argument, it waits the specific time before it gives up and continues
 
     Semaphore:
     Semaphore(int num)
-    Semaphore(int num, boolean how)
+    Semaphore(int num, boolean fair)
     Here, num specifies the initial permit count. Thus, it specifies the number of threads that can access a shared resource at any one time.
     If it is one, then only one thread can access the resource at any one time. By default, all waiting threads are granted a permit in an undefined order.
-    By setting how to true, you can ensure that waiting threads are granted a permit in the order in which they requested access.
+    By setting fair to true, you can ensure that waiting threads are granted a permit in the order in which they requested access.
     Methods:
     acquire();           can also be used with an int as Argument to take multiple permits at once (if available, otherwise it waits)
     release();           can also be used with an int as Argument to take multiple permits at once (if available, otherwise it waits)
