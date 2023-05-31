@@ -9,8 +9,5 @@
         <module name="ExerciseRepository" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel>
-      <module name="ExerciseRepository" target="17" />
-    </bytecodeTargetLevel>
   </component>
 </project>
