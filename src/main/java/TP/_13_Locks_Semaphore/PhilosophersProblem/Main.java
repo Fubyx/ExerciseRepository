@@ -31,6 +31,21 @@ public class Main {
         philosopher3.join();
         philosopher4.join();
         philosopher5.join();
+
+        sum = 0.0;
+        sum += philosopher1.sumOfWaitTimes;
+        sum += philosopher2.sumOfWaitTimes;
+        sum += philosopher3.sumOfWaitTimes;
+        sum += philosopher4.sumOfWaitTimes;
+        sum += philosopher5.sumOfWaitTimes;
+
+        eat = 0;
+        eat += philosopher1.amountOfEatTimes;
+        eat += philosopher2.amountOfEatTimes;
+        eat += philosopher3.amountOfEatTimes;
+        eat += philosopher4.amountOfEatTimes;
+        eat += philosopher5.amountOfEatTimes;
+
         System.out.println("Average waiting time = " + sum/eat + " seconds");
     }
 }

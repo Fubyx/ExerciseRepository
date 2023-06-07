@@ -9,8 +9,8 @@ public class Philosopher extends Thread{
     private final Fork forkRight;
     private final ReentrantLock collectionLock;
     private final String name;
-    private Double sumOfWaitTimes;
-    private Integer amountOfEatTimes;
+    public Double sumOfWaitTimes;
+    public Integer amountOfEatTimes;
 
     public Philosopher (Fork leftFork, Fork rightFork, ReentrantLock collectionLock, String name, Double sumOfWaitTimes, Integer amountOfEatTimes){
         this.forkLeft = leftFork;
