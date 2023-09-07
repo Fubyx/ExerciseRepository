@@ -1,2 +1,13 @@
 # Project exclude paths
 /out/
+/target/classes/TP/_13_Locks_Semaphore/Parkhaus/Auto.class
+/target/classes/Sockets/Examples/Client.class
+/target/classes/_13_Executors/Example_Executors/Main$1.class
+/target/classes/_13_Executors/Example_Executors/Main$2.class
+/target/classes/_13_Executors/Example_Executors/Main.class
+/target/classes/TP/_13_Locks_Semaphore/Parkhaus/Main.class
+/target/classes/TP/_13_Locks_Semaphore/Philosophfenproblem/Main.class
+/target/classes/TP/_13_Locks_Semaphore/Philosophfenproblem/Philosoph.class
+/target/classes/TP/_13_Locks_Semaphore/Examples/ReentrantLockWithCondition.class
+/target/classes/TP/_13_Locks_Semaphore/Examples/StampedLockDemo.class
+/target/classes/TP/_13_Locks_Semaphore/Examples/SynchronizedHashMapWithReadWriteLock.class
