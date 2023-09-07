@@ -25,7 +25,7 @@ public class Philosopher extends Thread{
     public void run(){
         Random rand = new Random();
         //while(true){
-        for(int i = 0; i < 200; ++i){
+        for(int i = 0; i < 50; ++i){
             try {//Thinking
                 //sleep(1000 * rand.nextInt(10));
                 sleep(0);
