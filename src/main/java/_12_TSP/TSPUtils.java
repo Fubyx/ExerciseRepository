@@ -147,7 +147,8 @@ public class TSPUtils {
     }
 
     /**
-     * Glaube dasselbe wie draußen schon im Segment fur alle in SChleife*/
+     * Glaube dasselbe wie draußen schon im Segment fur alle in Schleife
+     **/
     public static Graph combineMatchingAndSPT(Graph matching, Graph spt){
         Graph combiGraph = new Graph();
         for (Node node : spt.getNodes()) {
