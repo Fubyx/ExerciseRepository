@@ -1,5 +1,6 @@
 package _13_Executors.Example_Executors;
 
+import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -8,12 +9,14 @@ public class Main {
         Runnable r1 = new Runnable() {
             @Override
             public void run() {
-                try {
-                    Thread.sleep(100);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
+                while(true) {
+                    try {
+                        Thread.sleep(100);
+                    } catch (InterruptedException e) {
+                        throw new RuntimeException();
+                    }
+                    System.out.println("hello A " + Thread.currentThread());
                 }
-                System.out.println("hello A " + Thread.currentThread());
 
             }
         };
@@ -40,7 +43,15 @@ public class Main {
         executor.execute(r1);
         executor.execute(r2);
 
-        executor.shutdownNow();
+        List<Runnable> temp = executor.shutdownNow();
+        try {
+            Thread.sleep(100);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+        for (Runnable r : temp) {
+            System.out.println(r);
+        }
     }
 
 
