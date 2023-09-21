@@ -5,14 +5,14 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
-public class ThreadController {
+public class PrimeCheckerThreadController {
     /*
     Schreibe eine zweite Klasse, welche einen Threadpool verwaltet und der
     man Long-Zahlen übergeben kann. Die Klasse erzeugt einen PZPruefer und
     führt jede Berechnung in einem eigenen Thread aus.
      */
     long[] numbers;
-    public ThreadController(long ... numbers){
+    public PrimeCheckerThreadController(long ... numbers){
         this.numbers = numbers;
     }
     public boolean[] checkNumbers() throws ExecutionException, InterruptedException {
