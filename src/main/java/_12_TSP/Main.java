@@ -48,11 +48,10 @@ public class Main extends Application {
         final Graph[] g = {newGraphWithRandomNodes(amountOfNodes), null};
 
         //Labels und Buttons
-        root.requestFocus();
-        root.getChildren().add(buttonBox);
         buttonBox = new VBox();
         buttonBox.setLayoutX(0);
         buttonBox.setLayoutY(0);
+        root.getChildren().add(buttonBox);
 
         nodeAmountLabel = new Label();
         matchingButton = new Button();
