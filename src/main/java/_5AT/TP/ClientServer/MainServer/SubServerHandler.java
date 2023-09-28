@@ -6,26 +6,35 @@ import java.net.Socket;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class SubServerHandler implements Runnable{
+public class SubServerHandler implements Runnable {
     Socket subServer;
+
     SubServerHandler(Socket subServer) {
         this.subServer = subServer;
     }
+
     @Override
     public void run() {
+        ArrayList<String> commands = new ArrayList<>();
         Scanner s;
         PrintWriter w;
         try {
             w = new PrintWriter(subServer.getOutputStream());
             s = new Scanner(subServer.getInputStream());
-            String newCommand = s.nextLine();
-            if (newCommand.equals("disconnect")) {
-
+            while(true) {
+                String newCommand = s.nextLine();
+                if (newCommand.equals("disconnect")) {
+                    for (int i = 0; i < commands.size(); i++) {
+                        Server.subServerCommands.remove(commands.get(i));
+                    }
+                    break;
+                }
+                commands.add(newCommand);
+                Server.subServerCommands.put(newCommand, subServer);
             }
-            Server.subServerCommands.put(newCommand, subServer);
-
+            subServer.close();
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            System.out.println("what tf happened");
         }
     }
 }

@@ -16,14 +16,14 @@ public class Client {
         Scanner in;
         PrintWriter out;
         try {
-            in = new Scanner(socket.getInputStream());
             out = new PrintWriter(socket.getOutputStream(), true);
+            in = new Scanner(socket.getInputStream());
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         String message = in.nextLine();
-        while (!message.equals("disconnected")) {
+        while (!message.equals("done")) {
             System.out.print(message + "\n> ");
             try {
                 message = br.readLine();

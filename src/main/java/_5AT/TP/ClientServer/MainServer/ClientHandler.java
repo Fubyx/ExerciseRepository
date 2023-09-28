@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.Map;
 import java.util.Scanner;
 
 public class ClientHandler implements Runnable {
@@ -24,33 +25,20 @@ public class ClientHandler implements Runnable {
         Scanner in;
         PrintWriter out;
         try {
+            out = new PrintWriter(client.getOutputStream(), true);
 
             in = new Scanner(client.getInputStream());
-            out = new PrintWriter(client.getOutputStream(), true);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
         boolean notFinished = true;
         String[] message;
-//        out.println("Enter Password (or /quit):");
-//        while (true) {
-//            message = in.nextLine().split(" ");
-//            if (message[0].equals(password)) {
-//                out.println("connection succeeded. Enter \"/help\" to see the commands");
-//                break;
-//            } else if (message[0].equals("/quit")) {
-//                out.println("disconnected");
-//                return;
-//            } else {
-//                out.println("Wrong password");
-//            }
-//        }
+        out.println("connected to server");
         while (notFinished) {
-            message = in.nextLine().split(" ", 1);
+            message = in.nextLine().split(" ", 2);
             switch (message[0]) {
                 case "/help" -> {
                     out.println("Possible commands: /stopServer, /quit, /isPrime, /auth, /authhelp (if you're authenticated)");
-
                 }
                 case "/stopServer" -> {
                     out.println("disconnected");
@@ -67,21 +55,9 @@ public class ClientHandler implements Runnable {
                     out.println("disconnected");
                     notFinished = false;
                 }
-                case "/isPrime" -> {
-                    if (message.length < 2) {
-                        out.println("also enter a number (example: /isPrime 5)");
-                        break;
-                    }
-                    boolean val;
-                    try {
-                        val = isPrime(Long.parseLong(message[1]));
-                    } catch (NumberFormatException e) {
-                        val = false;
-                    }
-                    out.println(val);
-                }
+
                 case "/auth" -> {
-                    if (message.length != 2 && !message[1].equals(password)) {
+                    if (message.length < 2 || !message[1].equals(password)) {
                         out.println("wrong password");
                     } else {
                         authenticated = true;
@@ -93,20 +69,28 @@ public class ClientHandler implements Runnable {
                         if (message[0].equals("/userlist")) {
                             out.println("user: 0823ygb");
                         } else if (message[0].equals("/authhelp")) {
+                            StringBuilder s = new StringBuilder();
+                            for (Map.Entry<String, Socket> entry : Server.subServerCommands.entrySet()) {
+                                s.append(entry.getKey()).append(", ");
+                            }
+                            out.println(s);
                         } else {
-                            boolean found = false;
-                            for (int i = 0; i < Server.subServerCommands.size(); i++) {
-                                if (message[0].equals(Server.subServerCommands.get(i))) {
-                                    found = true;
-
-                                }
-                            }
-                            if (!found) {
+                            Socket subServer = Server.subServerCommands.get(message[0]);
+                            if (subServer == null) {
                                 out.println("Not a known Command");
+                                break;
                             }
+                            Scanner subr = null;
+                            PrintWriter subw = null;
+                            try {
+                                subw = new PrintWriter(subServer.getOutputStream());
+                                subr = new Scanner(subServer.getInputStream());
+                            } catch (IOException e) {
+                                throw new RuntimeException(e);
+                            }
+                            subw.println(message[0] + " " + message[1]);
+                            out.println(subr.nextLine());
                         }
-
-
                     } else {
                         out.println("Not a known Command");
                     }

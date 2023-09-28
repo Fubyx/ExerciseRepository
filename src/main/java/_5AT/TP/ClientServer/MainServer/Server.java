@@ -50,6 +50,7 @@ public class Server {
                 System.out.println("server Closed");
                 break;
             }
+            System.out.println("connected client");
             executor.execute(new ClientHandler(client, serverSocket));
         }
         executor.shutdown();
