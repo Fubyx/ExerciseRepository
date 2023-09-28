@@ -8,7 +8,7 @@ public class Client {
     public static void main(String[] args) {
         Socket socket;
         try {
-            socket = new Socket("127.0.0.1", 30000);
+            socket = new Socket("10.171.155.79", 30000);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

@@ -14,27 +14,53 @@ public class Client {
 
         ObjectOutputStream out;
         ObjectInputStream in;
+
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         try {
             out = new ObjectOutputStream(socket.getOutputStream());
             out.flush();
             in = new ObjectInputStream(socket.getInputStream());
-        } catch (IOException e) {
+            System.out.println(in.readObject());
+            String temp = br.readLine();
+            out.writeObject(temp);
+            out.flush();
+            temp = (String) in.readObject();
+            System.out.println(temp);
+            if (!temp.equals("Password:")){
+                out.close();
+                in.close();
+                System.exit(0);
+            }
+            temp = br.readLine();
+            out.writeObject(temp);
+            out.flush();
+
+            System.out.println(in.readObject());
+        } catch (IOException | ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         while (true){
             try {
-                System.out.println("Input your next request:");
+
+                System.out.println(in.readObject());
                 String request = br.readLine();
-                System.out.println(request);
 
                 if (request.equals("end"))break;
 
                 out.writeObject(request);
-
-                System.out.println(in.readObject());
-            } catch (IOException | ClassNotFoundException e) {
-                throw new RuntimeException(e);
+                out.flush();
+                String response = "";
+                while (!response.equals("EOF") && !response.equals("You do not have the privileges for this action.")){
+                    response = (String) in.readObject();
+                    if(response.equals("EOF") || response.equals("You do not have the privileges for this action."))break;
+                    System.out.println(response);
+                    request = br.readLine();
+                    out.writeObject(request);
+                    out.flush();
+                }
+                System.out.println("--------------");
+            } catch (IOException | ClassNotFoundException ignored) {
+                break;
             }
         }
         try {
