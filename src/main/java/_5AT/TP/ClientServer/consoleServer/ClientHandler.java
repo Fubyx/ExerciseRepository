@@ -1,12 +1,10 @@
 package _5AT.TP.ClientServer.consoleServer;
 
 
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.io.PrintWriter;
+import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.nio.charset.StandardCharsets;
 import java.util.Scanner;
 
 public class ClientHandler implements Runnable {
@@ -22,9 +20,11 @@ public class ClientHandler implements Runnable {
 
     @Override
     public void run() {
+        byte[] input = new byte[512];
         Scanner in;
         PrintWriter out;
         try {
+
             in = new Scanner(client.getInputStream());
             out = new PrintWriter(client.getOutputStream(), true);
         } catch (IOException e) {
@@ -71,7 +71,7 @@ public class ClientHandler implements Runnable {
                 case "isPrime" -> {
                     out.println("enter a number");
                     out.flush();
-                    message = (String) in.nextLine();
+                    message = in.nextLine();
                     boolean val;
                     try {
                         val = isPrime(Long.parseLong(message));
@@ -93,10 +93,14 @@ public class ClientHandler implements Runnable {
         if (num <= 1) {
             return false;
         }
-        if (num % 2 == 0) {
+        if (num  == 2) {
             return true;
         }
-        for (int i = 3; i < Math.sqrt(num); i++) {
+         if (num % 2 == 0) {
+            return false;
+        }
+
+        for (int i = 3; i < Math.sqrt(num); i += 2) {
             if (num % i == 0) {
                 return false;
             }
