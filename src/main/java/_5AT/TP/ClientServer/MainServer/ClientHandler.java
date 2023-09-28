@@ -83,12 +83,16 @@ public class ClientHandler implements Runnable {
                             Scanner subr = null;
                             PrintWriter subw = null;
                             try {
-                                subw = new PrintWriter(subServer.getOutputStream());
+                                subw = new PrintWriter(subServer.getOutputStream(), true);
                                 subr = new Scanner(subServer.getInputStream());
                             } catch (IOException e) {
                                 throw new RuntimeException(e);
                             }
-                            subw.println(message[0] + " " + message[1]);
+                            if (message.length == 1) {
+                                subw.println(message[0]);
+                            } else {
+                                subw.println(message[0] + " " + message[1]);
+                            }
                             out.println(subr.nextLine());
                         }
                     } else {
@@ -99,22 +103,5 @@ public class ClientHandler implements Runnable {
         }
     }
 
-    static public boolean isPrime(long num) {
-        if (num <= 1) {
-            return false;
-        }
-        if (num == 2) {
-            return true;
-        }
-        if (num % 2 == 0) {
-            return false;
-        }
 
-        for (int i = 3; i < Math.sqrt(num); i += 2) {
-            if (num % i == 0) {
-                return false;
-            }
-        }
-        return true;
-    }
 }

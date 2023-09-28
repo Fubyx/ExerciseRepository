@@ -19,20 +19,20 @@ public class SubServerHandler implements Runnable {
         Scanner s;
         PrintWriter w;
         try {
-            w = new PrintWriter(subServer.getOutputStream());
+            w = new PrintWriter(subServer.getOutputStream(), true);
             s = new Scanner(subServer.getInputStream());
             while(true) {
                 String newCommand = s.nextLine();
-                if (newCommand.equals("disconnect")) {
-                    for (int i = 0; i < commands.size(); i++) {
-                        Server.subServerCommands.remove(commands.get(i));
-                    }
+                if (newCommand.equals("done")) {
+//                    for (int i = 0; i < commands.size(); i++) {
+//                        Server.subServerCommands.remove(commands.get(i));
+//                    }
                     break;
                 }
                 commands.add(newCommand);
                 Server.subServerCommands.put(newCommand, subServer);
             }
-            subServer.close();
+//            subServer.close();
         } catch (IOException e) {
             System.out.println("what tf happened");
         }
