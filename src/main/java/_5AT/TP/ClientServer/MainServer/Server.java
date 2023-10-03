@@ -13,8 +13,12 @@ public class Server {
     public static boolean serverRuns = true;
     public static HashMap<String, Socket> subServerCommands = new HashMap<>();
     public static ServerSocket subServerServerSocket;
+    public static Users users = new Users();
+    public static UDPUsers udpUsers = new UDPUsers();
+
 
     public static void main(String[] args) {
+        users.addUser("admin", "admin", "admin");
         ServerSocket serverSocket;
         try {
             System.out.println("Trying to open Serversocket");

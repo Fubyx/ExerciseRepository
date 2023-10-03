@@ -1,10 +1,13 @@
 package _5AT.TP.Executor.UDP_Testing;
 
+import _5AT.TP.ClientServer.MainServer.Users;
+
 import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 
 public class Server {
+    public static Users users = new Users();
     public static void main(String[] args) throws IOException {
         // Step 1 : Create a socket to listen at port 1234
         DatagramSocket ds = new DatagramSocket(1234);
