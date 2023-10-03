@@ -38,7 +38,7 @@ public class ClientHandler implements Runnable {
             message = in.nextLine().split(" ", 2);
             switch (message[0]) {
                 case "/help" -> {
-                    out.println("Possible commands: /stopServer, /quit, /isPrime, /auth, /authhelp (if you're authenticated)");
+                    out.println("Possible commands: /stopServer, /quit, /auth, /authhelp (if you're authenticated)");
                 }
                 case "/stopServer" -> {
                     out.println("disconnected");
@@ -85,7 +85,7 @@ public class ClientHandler implements Runnable {
                                 out.println("Not a known Command");
                                 break;
                             }
-                            if (subServer.isConnected()) {
+                            if (!subServer.isConnected()) {
                                 out.println("Command no longer exists. (server that offers that service disconnected)");
                                 Server.subServerCommands.remove(message[0]);
                                 break;
