@@ -54,6 +54,11 @@ public class ClientHandler implements Runnable {
                 case "/quit" -> {
                     out.println("disconnected");
                     notFinished = false;
+                    try {
+                        client.close();
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
                 }
 
                 case "/auth" -> {
@@ -78,6 +83,11 @@ public class ClientHandler implements Runnable {
                             Socket subServer = Server.subServerCommands.get(message[0]);
                             if (subServer == null) {
                                 out.println("Not a known Command");
+                                break;
+                            }
+                            if (subServer.isConnected()) {
+                                out.println("Command no longer exists. (server that offers that service disconnected)");
+                                Server.subServerCommands.remove(message[0]);
                                 break;
                             }
                             Scanner subr = null;

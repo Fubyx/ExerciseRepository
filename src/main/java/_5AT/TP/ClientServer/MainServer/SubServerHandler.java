@@ -21,6 +21,7 @@ public class SubServerHandler implements Runnable {
         try {
             w = new PrintWriter(subServer.getOutputStream(), true);
             s = new Scanner(subServer.getInputStream());
+
             while(true) {
                 String newCommand = s.nextLine();
                 if (newCommand.equals("done")) {

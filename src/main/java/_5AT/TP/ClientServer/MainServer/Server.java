@@ -37,6 +37,7 @@ public class Server {
                     } catch (IOException e) {
                         break;
                     }
+                    System.out.println("connected sub server");
                     subServerExecutor.submit(new SubServerHandler(subServer));
                 }
             }

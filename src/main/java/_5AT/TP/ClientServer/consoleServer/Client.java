@@ -8,7 +8,7 @@ public class Client {
     public static void main(String[] args) {
         Socket socket;
         try {
-            socket = new Socket("10.171.155.79", 30000);
+            socket = new Socket("127.0.0.1", 30000);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -23,7 +23,7 @@ public class Client {
         }
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         String message = in.nextLine();
-        while (!message.equals("done")) {
+        while (!message.equals("disconnected")) {
             System.out.print(message + "\n> ");
             try {
                 message = br.readLine();
