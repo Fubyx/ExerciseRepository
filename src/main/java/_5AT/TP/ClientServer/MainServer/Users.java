@@ -24,7 +24,7 @@ public class Users {
     public synchronized String checkInformation (String userName, String password){
         User u = new User(userName, "", "");
         int i = users.indexOf(u);
-        if (users.get(i).getPassword().equals(password)){
+        if (i != -1 && users.get(i).getPassword().equals(password)){
             return users.get(i).getPrivileges();
         }
         return "";
