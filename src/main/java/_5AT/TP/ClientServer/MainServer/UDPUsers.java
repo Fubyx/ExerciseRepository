@@ -7,13 +7,13 @@ public class UDPUsers {
     public UDPUsers (){
         users = new ArrayList<>();
     }
-    public synchronized boolean addUser (String userName, String ipAddress, int port){
+    public synchronized UDPUser addUser (String userName, String ipAddress, int port){
         UDPUser u = new UDPUser(userName, ipAddress, port);
         if(!users.contains(u)){
             users.add(u);
-            return true;
+            return u;
         }
-        return false;
+        return null;
     }
     public synchronized String getUserList (String userName){
         String text = "";

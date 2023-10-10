@@ -21,7 +21,7 @@ public class User {
         return password;
     }
     public void setPassword(String password) {
-        if (password.length() < 5){
+        if (password.length() < 3){
             valid = false;
             return;
         }

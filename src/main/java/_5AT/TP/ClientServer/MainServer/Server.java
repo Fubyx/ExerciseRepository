@@ -15,7 +15,7 @@ public class Server {
     public static ServerSocket subServerServerSocket;
     public static Users users = new Users();
     public static UDPUsers udpUsers = new UDPUsers();
-
+    public static UDPGroups udpGroups = new UDPGroups();
 
     public static void main(String[] args) {
         users.addUser("admin", "admin", "admin");

@@ -7,13 +7,13 @@ public class Users {
     public Users (){
         users = new ArrayList<>();
     }
-    public synchronized boolean addUser (String userName, String password, String privileges){
+    public synchronized User addUser (String userName, String password, String privileges){
         User u = new User(userName, password, privileges);
         if (u.isValid() && !users.contains(new User(userName, "", ""))){
             users.add(u);
-            return true;
+            return u;
         }
-        return false;
+        return null;
     }
     /**
      * Checks if a user with the given information exists.
@@ -28,5 +28,8 @@ public class Users {
             return users.get(i).getPrivileges();
         }
         return "";
+    }
+    public synchronized void removeUser (User user){
+        users.remove(user);
     }
 }

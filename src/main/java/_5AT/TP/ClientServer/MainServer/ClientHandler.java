@@ -6,6 +6,7 @@ import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Map;
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 public class ClientHandler implements Runnable {
@@ -13,6 +14,8 @@ public class ClientHandler implements Runnable {
     private final ServerSocket server;
     private String udpUserName = "";
     private String privileges = "";
+    private UDPUser udpUser = null;
+    private User user = null;
 
     public ClientHandler(Socket client, ServerSocket server) {
         this.client = client;
@@ -35,11 +38,18 @@ public class ClientHandler implements Runnable {
         String[] message;
         out.println("connected to server");
         while (notFinished) {
-            message = in.nextLine().split(" ", 2);
+            try {
+                message = in.nextLine().split(" ", 2);
+            }catch (NoSuchElementException e){
+                Server.udpGroups.removeUser(udpUser);
+                Server.udpUsers.removeUser(udpUser.getUserName());
+                Server.users.removeUser(user);
+                return;
+            }
             switch (message[0]) {
                 case "/help" -> {
                     String result = "Possible commands: " + "/stopServer, " +
-                            "/quit, /isPrime, /auth, /authhelp (if you're authenticated)";
+                            "/quit, /isPrime, /auth";
                     if (!privileges.equals("")) {
                         result = result + ", /enableUDP";
                         if (privileges.equals("admin")) {
@@ -51,7 +61,8 @@ public class ClientHandler implements Runnable {
                     }
                     StringBuilder s = new StringBuilder();
                     for (Map.Entry<String, Socket> entry : Server.subServerCommands.entrySet()) {
-                        s.append(entry.getKey()).append(", ");
+                        s.append(", ");
+                        s.append(entry.getKey());
                     }
                     result = result + s;
                     out.println(result);
@@ -107,7 +118,9 @@ public class ClientHandler implements Runnable {
                     out.println("Enter Port:");
                     message = in.nextLine().split(" ");
                     int port = Integer.parseInt(message[0]);
-                    if (Server.udpUsers.addUser(udpUserName, ipAddress, port)) {
+                    UDPUser u = Server.udpUsers.addUser(udpUserName, ipAddress, port);
+                    if (u != null) {
+                        this.udpUser = u;
                         out.println("You are registered for UDP");
                         this.udpUserName = udpUserName;
                     } else {
@@ -128,19 +141,36 @@ public class ClientHandler implements Runnable {
                     }//*/
                     out.println("Enter the password:");
                     String newPassword = in.nextLine();
-                    out.println("Enter the privilege level: (user/user+/admin)");
+                    out.println("Enter the privilege level: (user/admin)");
                     String newPrivileges = in.nextLine();
-                    if (Server.users.addUser(newUsername, newPassword, newPrivileges)) {
+                    user = Server.users.addUser(newUsername, newPassword, newPrivileges);
+                    if (user != null) {
                         out.println("User created");
                     } else {
                         out.println("The information you entered does not result in a valid user. Enter /addUser to try again.");
                     }
                 }
                 case "/userlist" -> {
-                    if (!privileges.equals("") && !udpUserName.equals("")) {
+                    if (udpUser != null) {
                         out.println(Server.udpUsers.getUserList(udpUserName));
                     } else {
                         out.println("You are not a registered UDP-User.");
+                    }
+                }
+                case "/joingroup" -> {
+                    if (udpUser != null){
+                        String groupName = message[1];
+                        Server.udpGroups.joinGroup(udpUser, groupName);
+                        out.println("Success");
+                    }else{
+                        out.println("You did not jet register as a UDP User.");
+                    }
+                }
+                case "/grouplist" -> {
+                    if (udpUser != null){
+                        out.println(Server.udpGroups.getGroupList());
+                    }else{
+                        out.println("You did not jet register as a UDP User.");
                     }
                 }
                 default -> {
