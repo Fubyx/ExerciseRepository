@@ -42,7 +42,8 @@ public class ClientHandler implements Runnable {
                 message = in.nextLine().split(" ", 2);
             }catch (NoSuchElementException e){
                 Server.udpGroups.removeUser(udpUser);
-                Server.udpUsers.removeUser(udpUser.getUserName());
+                if (udpUser != null)
+                    Server.udpUsers.removeUser(udpUser.getUserName());
                 Server.users.removeUser(user);
                 return;
             }
