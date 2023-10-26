@@ -1,0 +1,10 @@
+grant codebase "file:/C:/Users/Fabian/Desktop/Oberschule/4AT/Informatik/Java/Exercise_Repository/target/classes" {
+    permission java.net.SocketPermission "*", "accept, connect";
+    permission java.net.SocketPermission "127.0.0.1", "connect,resolve";
+};
+
+// permissions needed from the debugger
+grant {
+   permission java.io.FilePermission "C:/Program Files/JetBrains/IntelliJ IDEA Community Edition 2023.2.2/bin/breakgen64.dll", "read";
+   permission java.lang.RuntimePermission "loadLibrary.*";
+};
