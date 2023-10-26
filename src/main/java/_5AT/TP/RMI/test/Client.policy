@@ -1,0 +1,8 @@
+grant codebase "file:\C:\Users\david\Documents_not_on_Onedrive\coding\Java\ExerciseRepository\target\classes\_5AT\TP\RMI\test"{
+   permission java.net.SocketPermission "*", "accept, connect";
+};
+grant {
+   permission java.io.FilePermission "C:\Program Files\JetBrains\IntelliJ IDEA 2022.2.1\bin\breakgen64.dll", "read";
+   permission java.lang.RuntimePermission "loadLibrary.*";
+
+};
