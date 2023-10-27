@@ -15,8 +15,8 @@ public class SquareTaskServer {
         try {
             TaskRemoteImpl impl = new TaskRemoteImpl();
             TaskRemote t_stub = (TaskRemote) UnicastRemoteObject.exportObject(impl, 0);
-            //registry = LocateRegistry.getRegistry();
-            registry = LocateRegistry.createRegistry(1099);
+            registry = LocateRegistry.getRegistry();
+            //registry = LocateRegistry.createRegistry(1099);
             registry.rebind("GenericTask", t_stub);
             System.out.println("Server bereit ...");
         } catch (RemoteException e) {
