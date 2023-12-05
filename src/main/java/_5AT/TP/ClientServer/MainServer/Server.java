@@ -19,6 +19,7 @@ public class Server {
         users.addUser("admin", "admin", "admin");
         users.addUser("david", "david", "admin");
         users.addUser("fabian", "fabian", "admin");
+
         ServerSocket serverSocket;
         try {
             System.out.println("Trying to open ServerSocket");
