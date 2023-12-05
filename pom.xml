@@ -27,5 +27,17 @@
             <artifactId>javafx-controls</artifactId>
             <version>20</version>
         </dependency>
+        <!-- Jakarta/JAX-WS to programm WSDL/SOAP -->
+        <dependency>
+            <groupId>jakarta.xml.ws</groupId>
+            <artifactId>jakarta.xml.ws-api</artifactId>
+            <version>4.0.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.sun.xml.ws</groupId>
+            <artifactId>jaxws-rt</artifactId>
+            <version>4.0.0</version>
+            <scope>runtime</scope>
+        </dependency>
     </dependencies>
 </project>

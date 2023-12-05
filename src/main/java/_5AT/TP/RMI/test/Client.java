@@ -9,7 +9,7 @@ public class Client {
     public static void main(String[] args) {
         try {
             Scanner s = new Scanner(System.in);
-            System.out.println("Zu welchen Server verbinden? (zB 127.0.0.1)"); //10.171.154.90
+            System.out.println("Zu welchen Server verbinden? (zB 127.0.0.1)");
             String serverName = s.nextLine();
             System.out.println("Welche Zahl soll quadriert werden?");
             Long number = s.nextLong();
