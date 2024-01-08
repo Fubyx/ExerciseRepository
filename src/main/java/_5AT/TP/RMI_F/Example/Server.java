@@ -13,7 +13,7 @@ public class Server {
         try {
             Message msg = new Message("Hallo Welt!");
             Text t_stub = (Text) UnicastRemoteObject.exportObject(msg, 0);
-            registry = LocateRegistry.getRegistry(50535);
+            registry = LocateRegistry.getRegistry(1099);
             registry.bind("TextMessage", t_stub);
             System.out.println("Server bereit ...");
             Thread.sleep(100000);
