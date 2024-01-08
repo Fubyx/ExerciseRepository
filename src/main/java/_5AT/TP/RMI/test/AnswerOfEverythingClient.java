@@ -19,7 +19,6 @@ public class AnswerOfEverythingClient {
             Registry registry = LocateRegistry.getRegistry(serverName, 30000);
             AnswerOfEverythingRemote stub = (AnswerOfEverythingRemote) registry.lookup("answerToEverything");
 
-
             AnswerReadyImpl answerReady = new AnswerReadyImpl();
             AnswerReadyLocal a_stub = (AnswerReadyLocal) UnicastRemoteObject.exportObject(answerReady, 0);
 
