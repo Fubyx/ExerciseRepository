@@ -9,7 +9,7 @@ import java.net.URI;
 
 public class CinemaEventHandlerRestStartup {
     private final static int port = 9998;
-    private final static String host="http://localhost/";
+    private final static String host="http://0.0.0.0/";
 
     public static void main(String[] args) {
         URI baseUri = UriBuilder.fromUri(host).port(port).build();

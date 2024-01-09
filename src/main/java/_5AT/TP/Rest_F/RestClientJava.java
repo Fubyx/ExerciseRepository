@@ -12,10 +12,10 @@ import java.net.URL;
 public class RestClientJava {
     public static void main(String[] args) throws IOException {
 
-        String url = "http://localhost:9998/movieevent";
+        String url = "http://0.0.0.0:9998/movieevent";
         HttpURLConnection httpClient =
                 (HttpURLConnection) new URL(url).openConnection();
-        httpClient.setRequestMethod("GET");
+        httpClient.setRequestMethod("POST");
         httpClient.setRequestProperty("Content-Type", "application/json");
         //httpClient.setRequestProperty("Accept", "application/json");
         httpClient.setDoOutput(true);
