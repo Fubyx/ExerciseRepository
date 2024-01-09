@@ -22,7 +22,7 @@ public class SquareTaskClient {
             Registry registry = LocateRegistry.getRegistry(ip, port);
             SquareTask task = new SquareTask();
             TaskRemote t_stub = (TaskRemote) registry.lookup("GenericTask");
-            Thread t1 = new Thread(() -> {
+            /*Thread t1 = new Thread(() -> {
                 try {
                     double response = (double)t_stub.doTask(number, task);
                     System.out.println("Antwort vom Server t1: " + response);
@@ -39,7 +39,7 @@ public class SquareTaskClient {
                 }
             });
             t1.start();
-            t2.start();
+            t2.start();*/
             double response = (double) t_stub.doTask(number, task);
             System.out.println("Antwort vom Server: " + response);
         } catch (Exception e) {

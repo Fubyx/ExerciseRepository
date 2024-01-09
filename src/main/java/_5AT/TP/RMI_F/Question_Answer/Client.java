@@ -16,11 +16,16 @@ public class Client {
         int port = sc.nextInt();
         System.out.println("Enter the question:");
         String question = sc.nextLine();
+        question = sc.nextLine();
 
         try {
             Registry registry = LocateRegistry.getRegistry(ip, port);
             RemoteObject rem = (RemoteObject) registry.lookup("Answer");
-            rem.answer(question, (CallBack) UnicastRemoteObject.exportObject(new CallBackImpl(), 0));
+            CallBack c = (CallBack) UnicastRemoteObject.exportObject(new CallBackImpl(), 0);
+            rem.answer(question, c);
+            System.err.println("ETstsststs");
+            System.err.println("ETstsststs");
+            System.err.println("ETstsststs");
         } catch (Exception e) {
             System.err.println("Fehler beim Client: " + e);
         }

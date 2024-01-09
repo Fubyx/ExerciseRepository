@@ -7,6 +7,6 @@ public class CallBackImpl implements CallBack, Serializable {
     @Override
     public void call(String answer) throws RemoteException {
         System.out.println("The server responded with:\n" + answer);
-        System.exit(0);
+        //System.exit(0);
     }
 }
